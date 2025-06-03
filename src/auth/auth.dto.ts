@@ -17,3 +17,17 @@ export class SignUpDTO {
   @IsString()
   password: string;
 }
+
+export class SignInDTO {
+  @IsEmail()
+  @IsString()
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password: string;
+}
+
+export type JwtPayload = {
+  id: string
+}
