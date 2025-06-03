@@ -69,4 +69,8 @@ export class AuthService {
   login(payload: JwtPayload): string {
     return this.jwt.sign(payload, { secret: this.secret });
   }
+
+  verify(token: string) {
+    return this.jwt.verify<JwtPayload>(token, { secret: this.secret })
+  }
 }
