@@ -1,98 +1,142 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Contact CRM API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST para cadastro de usuarios, autenticacao com JWT e gerenciamento de contatos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologias
 
-## Description
+- NestJS
+- TypeScript
+- Prisma
+- SQLite
+- JWT
+- Jest
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Funcionalidades
 
-## Project setup
+- Cadastro de usuario
+- Login com retorno de token JWT
+- Consulta do perfil do usuario autenticado
+- Criacao de contatos
+- Listagem de contatos com filtro textual
+- Listagem de contatos por tag
+- Atualizacao de contatos
+- Remocao de contatos
+- Listagem das tags existentes
 
-```bash
-$ npm install
-```
+## Estrutura principal
 
-## Compile and run the project
+- `src/auth/`: autenticacao, login, cadastro e validacao de token
+- `src/user/`: consulta do perfil do usuario autenticado
+- `src/contact/`: operacoes CRUD de contatos e filtros por tag
+- `src/prisma/`: integracao da aplicacao com o Prisma Client
+- `prisma/schema.prisma`: configuracao do banco e modelos `User` e `Contact`
+- `requests/`: exemplos de requisicoes HTTP para teste manual
 
-```bash
-# development
-$ npm run start
+## Requisitos
 
-# watch mode
-$ npm run start:dev
+- Node.js 20 ou superior
+- npm
 
-# production mode
-$ npm run start:prod
-```
+## Como executar
 
-## Run tests
+1. Instale as dependencias:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+2. Inicie a API em modo de desenvolvimento:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+3. A aplicacao ficara disponivel em:
 
-## Resources
+```text
+http://localhost:3000
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+Se a variavel `PORT` estiver definida, a API usara esse valor no lugar de `3000`.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## Banco de dados
 
-## Support
+O projeto usa SQLite com arquivo local configurado em `prisma/schema.prisma`:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```text
+file:dev.db
+```
 
-## Stay in touch
+O banco versionado no repositorio esta em:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```text
+prisma/dev.db
+```
 
-## License
+As migracoes existentes estao em `prisma/migrations/`.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Scripts disponiveis
+
+```bash
+npm run build
+npm run start
+npm run start:dev
+npm run start:debug
+npm run start:prod
+npm run lint
+npm run test
+npm run test:watch
+npm run test:cov
+npm run test:e2e
+```
+
+## Endpoints principais
+
+### Autenticacao
+
+- `POST /auth/sign-up`
+- `POST /auth/sign-in`
+
+### Usuario
+
+- `GET /user/profile`
+
+### Contatos
+
+- `POST /contact`
+- `GET /contact/list`
+- `GET /contact/list/:tag`
+- `PUT /contact/:contactId`
+- `DELETE /contact/:contactId`
+- `GET /contact/tags`
+
+## Fluxo basico de uso
+
+1. Crie um usuario em `POST /auth/sign-up`
+2. Faça login em `POST /auth/sign-in`
+3. Copie o token retornado
+4. Envie o token no cabecalho `Authorization: Bearer <token>`
+5. Acesse `GET /user/profile` e os endpoints de `contact`
+
+## Teste manual com os arquivos HTTP
+
+O diretorio `requests/` contem exemplos prontos para testar a API:
+
+- `sign-up.http`
+- `sign-in.http`
+- `profile.http`
+- `create-contact.http`
+- `list-contacts.http`
+- `list-contacts-by-tag.http`
+- `list-tags.http`
+- `update-contact.http`
+- `delete-contact.http`
+
+Esses arquivos podem ser executados em extensoes de cliente HTTP no VS Code, como REST Client.
+
+## Observacoes de implementacao
+
+- A autenticacao usa JWT com expiracao de 1 dia.
+- A senha do usuario e armazenada com `bcrypt`.
+- O projeto aplica `ValidationPipe` global no bootstrap da aplicacao.
+- O modulo principal importa `AuthModule`, `UserModule` e `ContactModule`.
