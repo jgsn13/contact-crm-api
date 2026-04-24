@@ -8,7 +8,7 @@
 - **Mudancas:** Define as dependencias centrais da API (`@nestjs/*`, `@prisma/client`, `bcrypt`, `class-validator`), os scripts de build, execucao e testes (`build`, `start:*`, `test:*`) e a Configuração embutida do Jest.
 - **Data Release:** 15/04/2026
 
-# Item de Configuração: schema.prisma
+# Item de Configuração: `schema.prisma`
 
 - **ID:** IC-002
 - **Tipo:** Configuração de banco de dados
