@@ -1,7 +1,7 @@
 # Item de Configuração: `package.json`
 - **ID:** IC-001
 - **Tipo:** Configuração de build e execução
-- **Versao:** 0.0.1
+- **Versao:** 1.0.0
 - **Repositorio:** https://github.com/jgsn13/contact-crm-api.git
 - **Branch:** main
 - **Commit ID:** 1f8c917
@@ -12,7 +12,7 @@
 
 - **ID:** IC-002
 - **Tipo:** Configuração de banco de dados
-- **Versao:** 0.0.1
+- **Versao:** 1.0.0
 - **Repositorio:** https://github.com/jgsn13/contact-crm-api.git
 - **Branch:** main
 - **Commit ID:** 1f8c917
@@ -23,7 +23,7 @@
 
 - **ID:** IC-003
 - **Tipo:** Configuração de framework
-- **Versao:** 0.0.1
+- **Versao:** 1.0.0
 - **Repositorio:** https://github.com/jgsn13/contact-crm-api.git
 - **Branch:** main
 - **Commit ID:** 1f8c917
@@ -34,7 +34,7 @@
 
 - **ID:** IC-004
 - **Tipo:** Configuração de compilacao
-- **Versao:** 0.0.1
+- **Versao:** 1.0.0
 - **Repositorio:** https://github.com/jgsn13/contact-crm-api.git
 - **Branch:** main
 - **Commit ID:** 1f8c917
@@ -45,7 +45,7 @@
 
 - **ID:** IC-005
 - **Tipo:** Configuração de qualidade de codigo
-- **Versao:** 0.0.1
+- **Versao:** 1.0.0
 - **Repositorio:** https://github.com/jgsn13/contact-crm-api.git
 - **Branch:** main
 - **Commit ID:** 1f8c917
@@ -56,7 +56,7 @@
 
 - **ID:** IC-006
 - **Tipo:** Documento
-- **Versao:** 0.0.1
+- **Versao:** 1.0.0
 - **Repositorio:** https://github.com/jgsn13/contact-crm-api.git
 - **Branch:** main
 - **Commit ID:** 1f8c917
@@ -67,7 +67,7 @@
 
 - **ID:** IC-007
 - **Tipo:** Codigo-fonte principal
-- **Versao:** 0.0.1
+- **Versao:** 1.0.0
 - **Repositorio:** https://github.com/jgsn13/contact-crm-api.git
 - **Branch:** main
 - **Commit ID:** 1f8c917
@@ -78,7 +78,7 @@
 
 - **ID:** IC-008
 - **Tipo:** Codigo-fonte principal
-- **Versao:** 0.0.1
+- **Versao:** 1.0.0
 - **Repositorio:** https://github.com/jgsn13/contact-crm-api.git
 - **Branch:** main
 - **Commit ID:** 1f8c917
