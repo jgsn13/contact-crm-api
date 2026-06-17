@@ -42,6 +42,8 @@ API REST para cadastro de usuarios, autenticacao com JWT e gerenciamento de cont
 
 ## Como executar
 
+Execute os comandos abaixo na ordem indicada para instalar dependencias, preparar o Prisma e iniciar a API localmente.
+
 1. Instale as dependencias:
 
 ```bash
@@ -54,13 +56,13 @@ npm install
 npm exec prisma generate
 ```
 
-3. Aplique as migracoes no banco local, se necessario:
+3. Aplique as migracoes no banco local para deixar o SQLite sincronizado com o schema atual:
 
 ```bash
 npm exec prisma migrate deploy
 ```
 
-4. Inicie a API em modo de desenvolvimento:
+4. Depois que as dependencias e o banco estiverem preparados, inicie a API em modo de desenvolvimento:
 
 ```bash
 npm run start:dev
