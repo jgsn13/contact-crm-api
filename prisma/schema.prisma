@@ -36,6 +36,21 @@ model Contact {
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
+  interactions ContactInteraction[]
 
   @@map("contact")
+}
+
+model ContactInteraction {
+  id          String   @id @default(uuid())
+  type        String
+  description String
+  occurredAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  contactId String
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@map("contact_interaction")
 }

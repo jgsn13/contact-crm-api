@@ -10,12 +10,24 @@ describe('ContactService', () => {
     contact: {
       findFirst: jest.Mock;
     };
+    contactInteraction: {
+      create: jest.Mock;
+      findMany: jest.Mock;
+      findFirst: jest.Mock;
+      delete: jest.Mock;
+    };
   };
 
   beforeEach(async () => {
     prisma = {
       contact: {
         findFirst: jest.fn(),
+      },
+      contactInteraction: {
+        create: jest.fn(),
+        findMany: jest.fn(),
+        findFirst: jest.fn(),
+        delete: jest.fn(),
       },
     };
 
@@ -68,5 +80,86 @@ describe('ContactService', () => {
     prisma.contact.findFirst.mockResolvedValue(null);
 
     await expect(service.findById('user-id', 'missing-id')).rejects.toBeInstanceOf(NotFoundException);
+  });
+
+  it('should create an interaction for a contact owned by the user', async () => {
+    prisma.contact.findFirst.mockResolvedValue({
+      id: 'contact-id',
+      userId: 'user-id',
+    });
+    prisma.contactInteraction.create.mockResolvedValue({
+      id: 'interaction-id',
+      contactId: 'contact-id',
+      type: 'email',
+      description: 'Sent proposal',
+    });
+
+    await expect(service.createInteraction('user-id', 'contact-id', {
+      type: 'email',
+      description: 'Sent proposal',
+    })).resolves.toEqual({
+      id: 'interaction-id',
+      contactId: 'contact-id',
+      type: 'email',
+      description: 'Sent proposal',
+    });
+    expect(prisma.contactInteraction.create).toHaveBeenCalledWith({
+      data: {
+        type: 'email',
+        description: 'Sent proposal',
+        occurredAt: undefined,
+        contactId: 'contact-id',
+      },
+    });
+  });
+
+  it('should list interactions for a contact owned by the user', async () => {
+    const interactions = [
+      {
+        id: 'interaction-id',
+        contactId: 'contact-id',
+        type: 'call',
+        description: 'Called customer',
+      },
+    ];
+    prisma.contact.findFirst.mockResolvedValue({
+      id: 'contact-id',
+      userId: 'user-id',
+    });
+    prisma.contactInteraction.findMany.mockResolvedValue(interactions);
+
+    await expect(service.listInteractions('user-id', 'contact-id')).resolves.toEqual(interactions);
+    expect(prisma.contactInteraction.findMany).toHaveBeenCalledWith({
+      where: {
+        contactId: 'contact-id',
+      },
+      orderBy: {
+        occurredAt: 'desc',
+      },
+    });
+  });
+
+  it('should delete an interaction owned by the user', async () => {
+    prisma.contactInteraction.findFirst.mockResolvedValue({
+      id: 'interaction-id',
+    });
+    prisma.contactInteraction.delete.mockResolvedValue({
+      id: 'interaction-id',
+    });
+
+    await expect(service.deleteInteraction('user-id', 'interaction-id')).resolves.toBeUndefined();
+    expect(prisma.contactInteraction.findFirst).toHaveBeenCalledWith({
+      where: {
+        id: 'interaction-id',
+        contact: {
+          userId: 'user-id',
+        },
+      },
+    });
+    expect(prisma.contactInteraction.delete).toHaveBeenCalledWith({
+      where: {
+        id: 'interaction-id',
+      },
+    });
   });
 });
