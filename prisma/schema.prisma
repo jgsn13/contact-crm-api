@@ -37,6 +37,7 @@ model Contact {
   userId String
   user   User   @relation(fields: [userId], references: [id])
   interactions ContactInteraction[]
+  opportunities SalesOpportunity[]
 
   @@map("contact")
 }
@@ -53,4 +54,20 @@ model ContactInteraction {
   contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
 
   @@map("contact_interaction")
+}
+
+model SalesOpportunity {
+  id             String   @id @default(uuid())
+  title          String
+  description    String?
+  pipelineStage  String
+  estimatedValue Float
+  status         String   @default("open")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  contactId String
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@map("sales_opportunity")
 }

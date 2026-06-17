@@ -1,0 +1,9 @@
+PUT http://localhost:3000/opportunities/9a72a777-ebad-4b1a-9629-c7079712547b HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg4NzJhNzc3LWViYWQtNGIxYS05NjI5LWM3MDc5NzEyNTQ3YiIsImlhdCI6MTc0ODkxNTMyMiwiZXhwIjoxNzQ5MDAxNzIyfQ.JLFytxUzzztP0-xPKAyOb4Digo93vtOU2pDf5LzWV6w
+content-type: application/json
+
+{
+    "pipelineStage": "negotiation",
+    "estimatedValue": 13500,
+    "status": "won"
+}
