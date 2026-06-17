@@ -6,9 +6,10 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ContactModule } from './contact/contact.module';
 import { OpportunityModule } from './opportunity/opportunity.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
-  imports: [AuthModule, UserModule, ContactModule, OpportunityModule],
+  imports: [AuthModule, UserModule, ContactModule, OpportunityModule, DashboardModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
