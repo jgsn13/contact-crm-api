@@ -56,6 +56,12 @@ export class ContactService {
           {
             tag: { contains: text }
           },
+          {
+            company: { contains: text }
+          },
+          {
+            status: { contains: text }
+          },
         ],
       },
       orderBy: {
@@ -65,7 +71,7 @@ export class ContactService {
   }
 
   async update(userId: string, contactId: string, data: UpdateContactDTO) {
-    const contact = await this.db.contact.findUnique({
+    const contact = await this.db.contact.findFirst({
       where: {
         userId,
         id: contactId,
@@ -76,13 +82,11 @@ export class ContactService {
     }
 
     if (data.email) {
-      const emailExists = Boolean(await this.db.contact.findUnique({
+      const emailExists = Boolean(await this.db.contact.findFirst({
         where: {
           email: data.email,
-          AND: {
-            id: {
-              not: contactId,
-            },
+          id: {
+            not: contactId,
           },
         },
       }));
@@ -92,13 +96,11 @@ export class ContactService {
     }
 
     if (data.phone) {
-      const phoneExists = Boolean(await this.db.contact.findUnique({
+      const phoneExists = Boolean(await this.db.contact.findFirst({
         where: {
           phone: data.phone,
-          AND: {
-            id: {
-              not: contactId,
-            },
+          id: {
+            not: contactId,
           },
         },
       }));
@@ -113,9 +115,23 @@ export class ContactService {
     });
   }
 
+  async findById(userId: string, contactId: string) {
+    const contact = await this.db.contact.findFirst({
+      where: {
+        userId,
+        id: contactId,
+      },
+    });
+
+    if (!contact) {
+      throw new NotFoundException();
+    }
+
+    return contact;
+  }
 
   async delete(userId: string, contactId: string) {
-    const contact = await this.db.contact.findUnique({
+    const contact = await this.db.contact.findFirst({
       where: {
         userId,
         id: contactId,
