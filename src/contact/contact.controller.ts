@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ContactService } from './contact.service';
-import { CreateContactDTO, UpdateContactDTO } from './contact.dto';
+import { CreateContactDTO, CreateContactInteractionDTO, UpdateContactDTO } from './contact.dto';
 import { UserId } from 'src/user/user-id.decorator';
 
 @Controller('contact')
@@ -53,5 +53,38 @@ export class ContactController {
     @UserId() userId: string,
   ) {
     return await this.contactService.listTags(userId);
+  }
+
+  @Post(':contactId/interactions')
+  async createInteraction(
+    @UserId() userId: string,
+    @Param('contactId') contactId: string,
+    @Body() body: CreateContactInteractionDTO,
+  ) {
+    return await this.contactService.createInteraction(userId, contactId, body);
+  }
+
+  @Get(':contactId/interactions')
+  async listInteractions(
+    @UserId() userId: string,
+    @Param('contactId') contactId: string,
+  ) {
+    return await this.contactService.listInteractions(userId, contactId);
+  }
+
+  @Delete('interactions/:interactionId')
+  async deleteInteraction(
+    @UserId() userId: string,
+    @Param('interactionId') interactionId: string,
+  ) {
+    return await this.contactService.deleteInteraction(userId, interactionId);
+  }
+
+  @Get(':contactId')
+  async findById(
+    @UserId() userId: string,
+    @Param('contactId') contactId: string,
+  ) {
+    return await this.contactService.findById(userId, contactId);
   }
 }

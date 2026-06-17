@@ -28,12 +28,46 @@ model Contact {
   name      String
   email     String   @unique
   phone     String   @unique
+  company   String?
+  status    String   @default("active")
   tag       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
+  interactions ContactInteraction[]
+  opportunities SalesOpportunity[]
 
   @@map("contact")
+}
+
+model ContactInteraction {
+  id          String   @id @default(uuid())
+  type        String
+  description String
+  occurredAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  contactId String
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@map("contact_interaction")
+}
+
+model SalesOpportunity {
+  id             String   @id @default(uuid())
+  title          String
+  description    String?
+  pipelineStage  String
+  estimatedValue Float
+  status         String   @default("open")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  contactId String
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@map("sales_opportunity")
 }

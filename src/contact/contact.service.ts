@@ -1,6 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateContactDTO, UpdateContactDTO } from './contact.dto';
+import { CreateContactDTO, CreateContactInteractionDTO, UpdateContactDTO } from './contact.dto';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -56,6 +56,12 @@ export class ContactService {
           {
             tag: { contains: text }
           },
+          {
+            company: { contains: text }
+          },
+          {
+            status: { contains: text }
+          },
         ],
       },
       orderBy: {
@@ -65,7 +71,7 @@ export class ContactService {
   }
 
   async update(userId: string, contactId: string, data: UpdateContactDTO) {
-    const contact = await this.db.contact.findUnique({
+    const contact = await this.db.contact.findFirst({
       where: {
         userId,
         id: contactId,
@@ -76,13 +82,11 @@ export class ContactService {
     }
 
     if (data.email) {
-      const emailExists = Boolean(await this.db.contact.findUnique({
+      const emailExists = Boolean(await this.db.contact.findFirst({
         where: {
           email: data.email,
-          AND: {
-            id: {
-              not: contactId,
-            },
+          id: {
+            not: contactId,
           },
         },
       }));
@@ -92,13 +96,11 @@ export class ContactService {
     }
 
     if (data.phone) {
-      const phoneExists = Boolean(await this.db.contact.findUnique({
+      const phoneExists = Boolean(await this.db.contact.findFirst({
         where: {
           phone: data.phone,
-          AND: {
-            id: {
-              not: contactId,
-            },
+          id: {
+            not: contactId,
           },
         },
       }));
@@ -113,9 +115,23 @@ export class ContactService {
     });
   }
 
+  async findById(userId: string, contactId: string) {
+    const contact = await this.db.contact.findFirst({
+      where: {
+        userId,
+        id: contactId,
+      },
+    });
+
+    if (!contact) {
+      throw new NotFoundException();
+    }
+
+    return contact;
+  }
 
   async delete(userId: string, contactId: string) {
-    const contact = await this.db.contact.findUnique({
+    const contact = await this.db.contact.findFirst({
       where: {
         userId,
         id: contactId,
@@ -157,6 +173,71 @@ export class ContactService {
       },
       orderBy: {
         name: 'asc',
+      },
+    });
+  }
+
+  async createInteraction(userId: string, contactId: string, data: CreateContactInteractionDTO) {
+    const contact = await this.db.contact.findFirst({
+      where: {
+        userId,
+        id: contactId,
+      },
+    });
+
+    if (!contact) {
+      throw new NotFoundException();
+    }
+
+    return await this.db.contactInteraction.create({
+      data: {
+        type: data.type,
+        description: data.description,
+        occurredAt: data.occurredAt ? new Date(data.occurredAt) : undefined,
+        contactId: contact.id,
+      },
+    });
+  }
+
+  async listInteractions(userId: string, contactId: string) {
+    const contact = await this.db.contact.findFirst({
+      where: {
+        userId,
+        id: contactId,
+      },
+    });
+
+    if (!contact) {
+      throw new NotFoundException();
+    }
+
+    return await this.db.contactInteraction.findMany({
+      where: {
+        contactId: contact.id,
+      },
+      orderBy: {
+        occurredAt: 'desc',
+      },
+    });
+  }
+
+  async deleteInteraction(userId: string, interactionId: string) {
+    const interaction = await this.db.contactInteraction.findFirst({
+      where: {
+        id: interactionId,
+        contact: {
+          userId,
+        },
+      },
+    });
+
+    if (!interaction) {
+      throw new NotFoundException();
+    }
+
+    await this.db.contactInteraction.delete({
+      where: {
+        id: interaction.id,
       },
     });
   }
