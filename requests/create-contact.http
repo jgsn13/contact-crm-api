@@ -6,5 +6,7 @@ content-type: application/json
     "name": "Viviane",
     "email": "viviane@email.com",
     "phone": "88993553132",
+    "company": "Acme",
+    "status": "lead",
     "tag": "family"
 }

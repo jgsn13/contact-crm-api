@@ -54,4 +54,12 @@ export class ContactController {
   ) {
     return await this.contactService.listTags(userId);
   }
+
+  @Get(':contactId')
+  async findById(
+    @UserId() userId: string,
+    @Param('contactId') contactId: string,
+  ) {
+    return await this.contactService.findById(userId, contactId);
+  }
 }

@@ -28,6 +28,8 @@ model Contact {
   name      String
   email     String   @unique
   phone     String   @unique
+  company   String?
+  status    String   @default("active")
   tag       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

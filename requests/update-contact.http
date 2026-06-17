@@ -4,5 +4,7 @@ content-type: application/json
 
 {
     "name": "Daniel",
-    "email": "daniel@email.com"
+    "email": "daniel@email.com",
+    "company": "DSS",
+    "status": "active"
 }
